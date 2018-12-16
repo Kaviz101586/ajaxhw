@@ -1,0 +1,34 @@
+#buttonArea {
+    height: 400px;
+    width: 100%;
+    padding: 6px 6px;
+    margin: 2px 2px;
+}
+
+#giphysArea {
+    float: left;
+    width: 80%
+}
+
+#barArea {
+    float:right;
+    width: 20%;
+}
+
+button {
+    padding: 6px 6px;
+    margin: 2px 2px;
+    background-color: teal;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+#run-search {
+    padding: 6px 6px;
+    margin: 2px 2px;
+}
+
+#add-term {
+    padding: 6px 6px;
+    margin: 2px 2px;
+}
