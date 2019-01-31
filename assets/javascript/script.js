@@ -2,12 +2,8 @@
 
 var topics = ["yankees","islanders","pacers","jets","rangers","devils","mets","giants","knicks","nets"];
 
-for (var i = 0; i < topics.length; i++) {
-    var button = $("<button>");
-    button.attr("data-name", topics[i]);
-    button.text(topics[i]);
-    $("#buttonArea").append(button);
-}
+// Call function to create buttons for pre-existing topics// - works
+renderbuttons();
 
 // Click handler for "ADD" button // - works
 $("#run-search").on("click", function() {
@@ -17,12 +13,6 @@ $("#run-search").on("click", function() {
     console.log(topics);
     renderbuttons();
 })
-
-// Click handler for the AJAX call// - works
-
-$("button").on("click",function() {
-    pullInfo();
-});
 
 // New terms added need buttons // - works
 
@@ -48,6 +38,7 @@ function pullInfo() {
     var teamPicked = $(this).attr("data-name");
     var queryURL ="https://api.giphy.com/v1/gifs/search?q=" + teamPicked + "&api_key=9LW26mPO68F64z19crdF1QhOFXAiv4HI&limit=10";
     console.log(queryURL);
+    
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -56,15 +47,14 @@ function pullInfo() {
         
         for (var i = 0; i<response.data.length; i++) {
 
-            // Create div for the images and an image tag//
-
-            var teamDiv = $('<div class="team">');
-            var image = $("<img src=" + moving + ">")
-            
             // Variables for the moving and still gifs//
             var moving = response.data[i].images.fixed_height_small.url;
             var still = response.data[i].images.fixed_height_small_still.url;
 
+            // Create div for the images and an image tag//
+            var teamDiv = $('<div class="team">');
+            var image = $("<img src=" + moving + ">")
+            
             // Variable to capture the rating and put the text in the html//
             var rated = response.data[i].rating;
             var p = $("<p>").text("Rating: " + rated);
@@ -75,7 +65,7 @@ function pullInfo() {
                     
             image.attr("data-moving",moving);
             image.attr("data-still",still);
-            image.attr("data-state","moving");
+            image.attr("data-state","animate");
             image.addClass("image");
             teamDiv.append(image);
             $("#giphysArea").append(teamDiv);
@@ -86,17 +76,17 @@ function pullInfo() {
 // Function to change from still to moving and vice-versa//
 
 function stateChange() {
-
+    
     var state = $(this).attr("data-state");
     
-    if (state == "moving") {
+    if (state == "animate") {
         $(this).attr("src", $(this).attr("data-still"));
         $(this).attr("data-state", "still");
     } 
     
     else {
         $(this).attr("src", $(this).attr("data-moving"));
-        $(this).attr("data-state","moving");
+        $(this).attr("data-state","animate");
     }
 }
 
