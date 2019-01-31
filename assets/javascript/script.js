@@ -52,9 +52,12 @@ function pullInfo() {
             var still = response.data[i].images.fixed_height_small_still.url;
 
             // Create div for the images and an image tag//
-            var teamDiv = $('<div class="team">');
+
+            var teamDiv = $('<div>');
             var image = $("<img src=" + moving + ">")
             
+
+
             // Variable to capture the rating and put the text in the html//
             var rated = response.data[i].rating;
             var p = $("<p>").text("Rating: " + rated);
@@ -65,7 +68,7 @@ function pullInfo() {
                     
             image.attr("data-moving",moving);
             image.attr("data-still",still);
-            image.attr("data-state","animate");
+            image.attr("data-state","moving");
             image.addClass("image");
             teamDiv.append(image);
             $("#giphysArea").append(teamDiv);
@@ -79,14 +82,14 @@ function stateChange() {
     
     var state = $(this).attr("data-state");
     
-    if (state == "animate") {
+    if (state == "moving") {
         $(this).attr("src", $(this).attr("data-still"));
         $(this).attr("data-state", "still");
     } 
     
     else {
         $(this).attr("src", $(this).attr("data-moving"));
-        $(this).attr("data-state","animate");
+        $(this).attr("data-state","moving");
     }
 }
 
